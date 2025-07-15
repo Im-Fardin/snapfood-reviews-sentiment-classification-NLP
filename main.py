@@ -24,8 +24,6 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 # Load resources
 vectorizer = joblib.load("tfidf_vectorizer.pkl")
 model = joblib.load("sentiment_model.pkl")
-#le = joblib.load("label_encoder.pkl")
-
 normalizer = Normalizer()
 lemmatizer = Lemmatizer()
 stopwords = set(stopwords_list())
