@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تحلیل احساسات نظرات</title>
+  <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+
+  <div class="container">
+    <header class="header">
+      <h1>تحلیل احساسات نظرات کاربران</h1>
+      <p>نظر خود را وارد کنید تا تحلیل شود</p>
+    </header>
+
+    <main>
+      <section class="form-section">
+        <textarea id="comment" placeholder="اینجا نظر خود را بنویسید..."></textarea>
+        <button onclick="submitComment()">تحلیل نظر</button>
+        <p id="result"></p>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    async function submitComment() {
+      const text = document.getElementById("comment").value;
+      const response = await fetch("http://localhost:8000/predict/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text })
+      });
+      const data = await response.json();
+      const label = data.result === 1 ? "منفی ❌" : "مثبت ✅";
+      document.getElementById("result").innerText = `نتیجه تحلیل: ${label}`;
+    }
+  </script>
+</body>
+</html>
